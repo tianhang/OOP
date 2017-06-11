@@ -1,15 +1,17 @@
-var basicFunc = function(str) {
-    return str.toUpperCase();
+var strUtil = {
+    getUpperCaseStr: function(str) {
+        return str.toUpperCase();
+    }
 }
 
-var basicFuncRef = basicFunc;
+//backup reference of original function
+var getUpperCaseStrRef = strUtil.getUpperCaseStr;
 
-basicFunc = function(str) {
-    var value = basicFuncRef.apply(this, arguments);
-    console.log(this);
-    console.log(arguments);
+//add reverse functionality
+strUtil.getUpperCaseStr = function(str) {
+    var value = getUpperCaseStrRef.apply(this, arguments);
     return value.split("").reverse().join("");
 }
 
-var val = basicFunc("hello,world!");
-console.log(val);
+var val = strUtil.getUpperCaseStr("hello,world!");
+console.log(val); //!DLROW,OLLEH
